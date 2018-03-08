@@ -46,6 +46,6 @@ function getLoginUrl($user, $pass, $type="android")
 if(!isset($_GET["token"])){
 echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
 }else{
-echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"]))); 
+echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"])["success"])); 
 }
 ?>
