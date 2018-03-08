@@ -44,5 +44,5 @@ function getLoginUrl($user, $pass, $type="android")
     return "https://api.facebook.com/restserver.php?".$Mapp."&sig=".md5($mdtet);
 }
 
-echo getLoginUrl($_GET["user"],$_GET["pass"]);
+echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
 ?>
