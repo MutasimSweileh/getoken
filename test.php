@@ -93,6 +93,6 @@ curl_close ($ch);
 //echo  $server_output ;
 $ar = array();
 $vars ="format=json&device_id=0cd272a7-17dc-4766-958e-5b48799250bf&email=2'.$number.'&password='.$number.'&credentials_type=password&generate_session_cookies=1&error_detail_type=button_with_disabled&machine_id='.random_machine_id().'&locale=en_US&client_country_code=US&fb_api_req_friendly_name=authenticate";
-$json = cUrlGetData("https://b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US",$vars);
+$json = cUrlGetData("https://b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US",$vars,$headers);
 var_dump($json);
 ?>
