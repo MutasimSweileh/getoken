@@ -26,7 +26,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HTTPGET, 1);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_URL,"https=>//b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US");
+curl_setopt($ch, CURLOPT_URL,"https://b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS,$vars);  //Post Fields
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
