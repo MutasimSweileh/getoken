@@ -24,13 +24,13 @@ $headers = [
 curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HTTPGET, 1);
-curl_setopt($ch, CURLOPT_URL,"https=>//b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US");
+curl_setopt($ch, CURLOPT_URL,"https://b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS,$vars);  //Post Fields
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $server_output = curl_exec ($ch);
-var_dump(curl_getinfo($ch));
+//var_dump(curl_getinfo($ch));
   if (curl_errno($ch)) {
         echo 'Error:' . curl_error($ch);
     }
