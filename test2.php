@@ -1,7 +1,7 @@
 <?php
 /* EDIT EMAIL AND PASSWORD */
-$EMAIL      = "";
-$PASSWORD   = "";
+$EMAIL      = "01119195568";
+$PASSWORD   = "01119195568";
 function cURL($url, $header=NULL, $cookie=NULL, $p=NULL)
 {
     $ch = curl_init();
