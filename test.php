@@ -68,6 +68,6 @@ $server_output = curl_exec ($ch);
 curl_close ($ch);
 
 //echo  $server_output ;
-echo Json("https://b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US",true);
-
+$json = Json("https://b-graph.facebook.com/?include_headers=false&locale=en_US&client_country_code=US",true);
+var_dump($json);
 ?>
