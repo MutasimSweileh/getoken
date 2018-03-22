@@ -52,7 +52,7 @@ echo json_encode(array("data"=>Json(getLoginUrl($_GET["user"],$_GET["pass"])),"u
 //if($data != "" || $data != null)
 echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"])["success"])); 
   }else{
-$data = Json("https://graph.facebook.com/me/permissions?access_token=".$_GET["token"])["data"];
+$data = Json("https://graph.facebook.com/me/?access_token=".$_GET["token"])["name"];
 $data2 = false;
 if($data == "" || $data == null)
 $data2 = true; 
