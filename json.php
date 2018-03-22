@@ -47,7 +47,9 @@ if(!isset($_GET["token"])){
 //echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
 echo json_encode(array("data"=>Json(getLoginUrl($_GET["user"],$_GET["pass"])),"user"=>$_GET["user"]));
 }else{
-  if(!isset($_GET["check"])){  
+  if(!isset($_GET["check"])){ 
+ $data = Json("https://graph.facebook.com/me/permissions?access_token=".$_GET["token"])["data"];     
+if($data == "" || $data == null)
 echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"])["success"])); 
   }else{
 $data = Json("https://graph.facebook.com/me/permissions?access_token=".$_GET["token"])["data"];
