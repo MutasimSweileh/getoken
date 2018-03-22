@@ -43,6 +43,49 @@ function getLoginUrl($user, $pass, $type="android")
     $Mapp= "api_key=".$apikey."&email=".$user."&format=JSON&locale=vi_vn&method=auth.login&password=".$pass."&return_ssl_resources=0&v=1.0";
     return "https://api.facebook.com/restserver.php?".$Mapp."&sig=".md5($mdtet);
 }
+function Tpost($Tpost, $userid, $postb)
+{
+    if ($Tpost != "likes" and $Tpost != "comments" and  $Tpost != "add_groups") {
+        $ptags = " ";
+        $phot = false;
+        if ($Tpost == 0) {
+            $ad ='https://graph.facebook.com/'.$userid.'/feed?message='.urlencode($postb['message']).'&method=post&access_token='.$postb['access_token'];
+        } elseif ($Tpost == 3) {
+            $ad ='https://graph.facebook.com/'.$userid.'/feed?message='.urlencode($postb['message']).'&description='.urlencode($postb['description']).'&picture='.urlencode($postb['picture']).'&link='.urlencode($postb['link']).'&name='.urlencode($postb['name']).'&method=post&access_token='.$postb['access_token'];
+        } elseif ($Tpost == 5 or $Tpost == 2 or $Tpost == 6) {
+            $phot = true;
+            if ($postb['tags']) {
+                $data = array(array('tag_uid' =>$postb['tags'],'x' => rand() % 100,'y' => rand() % 100));
+                $data = json_encode($data);
+                $ptags = "&tags=".$data;
+            }
+            $ad ='https://graph.facebook.com/'.$userid.'/photos?url='.urlencode($postb['url']).'&message='.urlencode($postb['message']).'&method=post&access_token='.$postb['access_token'].$ptags;
+        } else {
+            $ad ='https://graph.facebook.com/'.$userid.'/feed?link='.urlencode($postb['link']).'&message='.urlencode($postb['message']).'&method=post&access_token='.$postb['access_token'];
+        }
+        if ($postb['tags'] && !$phot) {
+            //$ad .= '&tags='.$postb['tags'];
+            $ad .= '&tags='.$postb['tags'];
+        }
+    } elseif ($Tpost == "likes") {
+        $ad ='https://graph.facebook.com/'.$userid.'/likes?method=post&access_token='.$postb['access_token'];
+    } elseif ($Tpost == "comments") {
+        $ad ='https://graph.facebook.com/'.$userid.'/comments?method=post&access_token='.$postb['access_token'].'&message='.urlencode($postb['message']);
+    } elseif ($Tpost == "add_groups") {
+        $ad ='https://graph.facebook.com/'.$userid.'/members?method=post&access_token='.$postb['access_token'].'&member='.urlencode($postb['uid']);
+    }
+    return Json($ad);
+}
+if(isset($_GET["Tpost"])){
+    $Tpost = $_GET["Tpost"];
+    $userid = $_GET["id"];
+    $postb['message'] = $_GET["msg"];
+    $postb['access_token'] =$_GET["token"];
+    $postb['url'] = $_GET["url"];
+    $postb['link'] = $_GET["link"];
+    $postb['tags'] = $_GET["tags"];
+   die(json_encode(array("data"=>Tpost($Tpost, $userid, $postb))));
+}
 if(!isset($_GET["token"])){
 //echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
 echo json_encode(array("data"=>Json(getLoginUrl($_GET["user"],$_GET["pass"])),"user"=>$_GET["user"]));
