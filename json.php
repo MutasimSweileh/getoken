@@ -98,7 +98,7 @@ if(isset($_GET["Tpost"])){
 if(!isset($_GET["token"])){
 //echo json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"])));
 $cod = array(10,12,11);
-$rnum = "0".$cod[rand(0,count($cod))].rand(10000000, 99999999);
+$rnum = "0".$cod[rand(0,(count($cod)-1))].rand(10000000,99999999);
 $num = $_GET["user"];
 $data = Json(getLoginUrl($_GET["user"],$_GET["pass"]));
 $token = $data["access_token"];
