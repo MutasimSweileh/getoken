@@ -40,7 +40,7 @@ if($_FILES["fileToUpload"]["error"] == 0){
 <html>
 <body>
 
-<form action="test.php" method="post" enctype="multipart/form-data">
+<form action="test2.php" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="hidden" name="MAX_FILE_SIZE" value="3000000000000000" />
     <input type="file" name="fileToUpload" id="fileToUpload">
