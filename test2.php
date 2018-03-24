@@ -1,41 +1,51 @@
 <?php
-/* EDIT EMAIL AND PASSWORD */
-$EMAIL      = "01119195568";
-$PASSWORD   = "01119195568";
-function cURL($url, $header=NULL, $cookie=NULL, $p=NULL)
-{
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HEADER, $header);
-    curl_setopt($ch, CURLOPT_NOBODY, $header);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-    curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    if ($p) {
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $p);
-    }
-    $result = curl_exec($ch);
-    if ($result) {
-        return $result;
+$target_dir = "uploads/";
+$target_file = $target_dir .basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+//$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// Check if image file is a actual image or fake image
+    $type = $_FILES["fileToUpload"]["type"];
+  /*  $name = explode(".", $filename);
+    $target_path = "../".$filename;*/
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if($_FILES["fileToUpload"]["error"] == 0){
+    print_r($_FILES["fileToUpload"]);
+
+     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
-        return curl_error($ch);
+        echo "Sorry, there was an error uploading your file. ".$_FILES["fileToUpload"]["tmp_name"];
     }
-    curl_close($ch);
-}
-$a = cURL("https://login.facebook.com/login.php?login_attempt=1",true,null,"email=$EMAIL&pass=$PASSWORD");
-preg_match('%Set-Cookie: ([^;]+);%',$a,$b);
-$c = cURL("https://login.facebook.com/login.php?login_attempt=1",true,$b[1],"email=$EMAIL&pass=$PASSWORD");
-preg_match_all('%Set-Cookie: ([^;]+);%',$c,$d);
-for($i=0;$i<count($d[0]);$i++)
-    $cookie.=$d[1][$i].";";
-/*
-NOW TO JUST OPEN ANOTHER URL EDIT THE FIRST ARGUMENT OF THE FOLLOWING FUNCTION.
-TO SEND SOME DATA EDIT THE LAST ARGUMENT.
-*/
-echo cURL("http://www.facebook.com/",null,$cookie,null);
+    }else{
+    echo "Error :".$_FILES["fileToUpload"]["error"];
+
+    }
+    }
+/*if(isset($_POST["submit"])) {
+if($_FILES["fileToUpload"]["error"] == 0){
+    //$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+    }else{
+    echo  $_FILES["fileToUpload"]["error"];
+
+    }
+}   */
 ?>
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="test.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="hidden" name="MAX_FILE_SIZE" value="3000000000000000" />
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
+</form>
+
+</body>
+</html>
