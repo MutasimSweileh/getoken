@@ -45,8 +45,8 @@ function getLoginUrl($user, $pass, $type="android")
 }
 
 if(isset($_GET["getLink"])){
-die(getLoginUrl($_GET["user"],$_GET["pass"]));  
-
+ 
+ die(json_encode(array("data"=>getLoginUrl($_GET["user"],$_GET["pass"]))));
 }
 function Tpost($Tpost, $userid, $postb)
 {
