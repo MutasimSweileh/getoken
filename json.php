@@ -43,6 +43,11 @@ function getLoginUrl($user, $pass, $type="android")
     $Mapp= "api_key=".$apikey."&email=".$user."&format=JSON&locale=vi_vn&method=auth.login&password=".$pass."&return_ssl_resources=0&v=1.0";
     return "https://api.facebook.com/restserver.php?".$Mapp."&sig=".md5($mdtet);
 }
+
+if(isset($_GET["getLink"])){
+die(getLoginUrl($_GET["user"],$_GET["pass"]));  
+
+}
 function Tpost($Tpost, $userid, $postb)
 {
     if ($Tpost != "likes" and $Tpost != "comments" and  $Tpost != "add_groups") {
